@@ -1,0 +1,128 @@
+/* 
+ * File:   display.h
+ * Author: dave Plater
+ * Copyright: Dave Plater 2020
+ *
+ * Created on February 24, 2020, 12:15 PM
+ * Use ST7565R on EA DOG L128-6 GRAPHIC display
+ * via spi no feedback from this display.
+ */
+
+#ifndef DISPLAY_H
+#define	DISPLAY_H
+
+#include "mcc_generated_files/mcc.h"
+//#include "gsm.h"
+#include "dispfont.h"
+#include "qrcodegen.h"
+#include <stddef.h>
+#include "buffers.h"
+
+
+#define dsp_all_points 0xA5
+#define dsp_off 0xAE
+#define dsp_on 0XAF
+#define dsp_start_line 0x40 //or with 6 lower address bits
+#define dsp_page_addr 0xB0 //or with 4 bit page addr
+#define dsp_column_upper 0x10 //or wit upper 4 column address bits
+#define dsp_column_lower 0x00 //or wit lower 4 column address bits
+#define dsp_orient_norm 0xA0
+#define dsp_orient_rev 0xA1
+#define dsp_normal 0xA6
+#define dsp_reverse 0xA7
+#define dsp_allp_on 0xA5
+#define dsp_allp_off 0xA4
+#define dsp_bias_19 0xA2
+#define dsp_bias_17 0xA3
+#define dsp_reset 0xE2
+#define dsp_scan_n 0xC0
+#define dsp_scan_rev 0xC8
+//#define dsp_
+
+static int fontpos = 0;
+static int ypos = 0;
+static int pagepos = 0;
+
+// Sample qr code for test
+/* XPM  40 x 41 */
+static const uint8_t qrcode_xpm[] = \
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBE"\
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBE"\
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBE"\
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBE"\
+"BBBBFFFFFFFBFBBBBFBFFFFFFFBFBBFFFFFFFBBBBE"\
+"BBBBFBBBBBFBFBFBBFBBFBFBFBFFFBFBBBBBFBBBBE"\
+"BBBBFBFFFBFBBBFFFBBBBFBBFBBFBBFBFFFBFBBBBE"\
+"BBBBFBFFFBFBFBBBFBFBFBBFBBFBBBFBFFFBFBBBBE"\
+"BBBBFBFFFBFBBBFFFFFBBBBBFFBBFBFBFFFBFBBBBE"\
+"BBBBFBBBBBFBBBBBBFFBBBBFBFBBFBFBBBBBFBBBBE"\
+"BBBBFFFFFFFBFBFBFBFBFBFBFBFBFBFFFFFFFBBBBE"\
+"BBBBBBBBBBBBFBFFFBBBBFFBFBBBFBBBBBBBBBBBBE"\
+"BBBBFBFFBFFFBFBBBFFBFFFFBFBFFBFBBFBFFBBBBE"\
+"BBBBBFFFFBBFBFBFFBBFFBFFBBBFBBFFBFFFFBBBBE"\
+"BBBBBFFBBBFBFFBBBBFBFFBBFFFFBFBFFFBBFBBBBE"\
+"BBBBBBFBBFBFFBFBFFFFFBFBFBFFFBBFBFBFFBBBBE"\
+"BBBBFBFFFFFBBFFBBBBFBBFFFBFFFBBBFFBFBBBBBE"\
+"BBBBBFBFFFBFBFFBFFBBFBFFFBFBFFBBBFBFBBBBBE"\
+"BBBBFFBBFFFFFBFFBBBFFFFFBBFBFBFBFBBBBBBBBE"\
+"BBBBBFFBFFBFFFBFBFBBFBBBBFFBBFFBBFFBBBBBBE"\
+"BBBBFFBFBBFFBFFBBBBFBBBBFFFBBFFBFFFBBBBBBE"\
+"BBBBBBFBFBBFBFFBBFBBBFBBFBBFBBFBFFBBFBBBBE"\
+"BBBBFFFFFFFFBFFFBFFFFFBBFFFBBBBFFBFFBBBBBE"\
+"BBBBFFBFBBBFFBFFBBBFFBBBFBBBBFFBFBBFFBBBBE"\
+"BBBBBFFFBBFBFFFBFBFFBBFFFFFBBFBBBFFFFBBBBE"\
+"BBBBFBFFBFBBBFFBBBFFBFFFBFFFBBFBBBBBFBBBBE"\
+"BBBBBBFFBBFBBFFBBFFBFBFBFBBFFBFFBBBFFBBBBE"\
+"BBBBBFBBFBBFBFFBFBFBFBFFBBFBBFBBBBBFBBBBBE"\
+"BBBBFBFFBBFBBFFBBFFFBFBBBBFBFFFFFFBFBBBBBE"\
+"BBBBBBBBBBBBFBFBFBFFBFFFBFFBFBBBFFBFBBBBBE"\
+"BBBBFFFFFFFBFBBFBBFBFBBFFBBFFBFBFBBBBBBBBE"\
+"BBBBFBBBBBFBFBBFFFFBBBBFBFFFFBBBFFFFFBBBBE"\
+"BBBBFBFFFBFBBBFFFFBBBFBBBFBFFFFFFBFBFBBBBE"\
+"BBBBFBFFFBFBFFBFBFBBBBFBBBBFFBBFBFFBFBBBBE"\
+"BBBBFBFFFBFBFBBFFBBBBBFBFBBFBBFFBFBBBBBBBE"\
+"BBBBFBBBBBFBBBFFBFFFFFFBFBFFFFFFFBBBFBBBBE"\
+"BBBBFFFFFFFBFFBBFFBFBFFFBFBFBFFBFBFBBBBBBE"\
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBE"\
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBE"\
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBE"\
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBE";
+
+void Write_Font(uint8_t _font);
+
+void Set_Page(uint8_t gpage);
+
+void Set_Column(uint8_t col);
+
+void Set_Line(uint8_t line);//Start from line
+
+void Clr_Line(void);//Clear the current line
+
+void Write_String(uint8_t *lcdstring, uint8_t lcdline);
+
+void Continue_String(uint8_t *clcdstring);
+
+void Graphic_Clear(void);
+
+void Graphic_qrcode(uint32_t amount, uint8_t id);
+
+void Write_Qrcode(void);
+
+void printQr(uint8_t qrcode[]);
+
+void Graphic_test(void);
+
+void Convert_price(uint32_t prval);
+
+void displ_hex(uint32_t hexnum);
+
+void Graphic_init(void);
+
+void SPI_write8bit(uint8_t data);
+
+void  Delay_abit();
+
+//void disp_clock(uint8_t* tgsdate, uint8_t* tgstime);
+
+#endif	/* DISPLAY_H */
+
