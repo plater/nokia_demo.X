@@ -520,7 +520,7 @@ void lcdBegin(void)
 */
   //Reset the LCD to a known state
   rstPin_SetLow();
-  DelayMs(10);
+  DelayMs(10); //add a 10mSec delay
   rstPin_SetHigh();
 
   LCDWrite(LCD_COMMAND, 0x21); //Tell LCD extended commands follow
