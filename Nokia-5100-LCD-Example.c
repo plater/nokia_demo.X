@@ -87,7 +87,7 @@ void setup()
   lcdBegin(); // This will setup our pins, and initialize the LCD
   updateDisplay(); // with displayMap untouched, SFE logo
   setContrast(40); // Good values range from 40-60
-  delay(2000);
+  DelayMs(2000);
   
   lcdFunTime(); // Runs a 30-second demo of graphics functions
   
@@ -165,20 +165,20 @@ void lcdFunTime()
     // After drawing something, we must call updateDisplay()
     // to actually make the display draw something new.
     updateDisplay();
-    delay(10);
+    DelayMs(10);
   }
   setStr("full of stars", 0, LCD_HEIGHT-8, BLACK);
   updateDisplay();
-  delay(1000);
+  DelayMs(1000);
   // Seizure time!!! Err...demoing invertDisplay()
   for (int i=0; i<5; i++)
   {
     invertDisplay(); // This will swap all bits in our display
-    delay(200);
+    DelayMs(200);
     invertDisplay(); // This will get us back to where we started
-    delay(200);
+    DelayMs(200);
   }
-  delay(2000);
+  DelayMs(2000);
   
   /* setLine Example */
   clearDisplay(WHITE); // Start fresh
@@ -196,7 +196,7 @@ void lcdFunTime()
     // line. The last variable is the color (1=black, 0=white).
     setLine(x0, y0, x1, y1, BLACK);
     updateDisplay();
-    delay(100);
+    DelayMs(100);
   }
   /* Demo some backlight tuning
   for (int j=0; j<2; j++)
@@ -204,12 +204,12 @@ void lcdFunTime()
     for (int i=255; i>=0; i-=5)
     {
       analogWrite(blPin, i); // blPin is ocnnected to BL LED
-      delay(20);
+      DelayMs(20);
     }
     for (int i=0; i<256; i+=5)
     {
       analogWrite(blPin, i);
-      delay(20);
+      DelayMs(20);
     }
   }
   */
@@ -224,13 +224,13 @@ void lcdFunTime()
   { // Swipe right black
     setRect(0, 0, x, LCD_HEIGHT, 1, BLACK);
     updateDisplay();
-    delay(10);
+    DelayMs(10);
   }
   for (int x=0; x<LCD_WIDTH; x+=8)
   { // Swipe right white
     setRect(0, 0, x, LCD_HEIGHT, 1, WHITE);
     updateDisplay();
-    delay(10);
+    DelayMs(10);
   }
   for (int x=0; x<12; x++)
   { // Shutter swipe
@@ -242,7 +242,7 @@ void lcdFunTime()
     setRect(59, 0, x+60, LCD_HEIGHT, 1, BLACK);
     setRect(71, 0, x+72, LCD_HEIGHT, 1, BLACK);
     updateDisplay();
-    delay(10);
+    DelayMs(10);
   }
   // 3 Dee!
   setRect(25, 10, 45, 30, 0, WHITE);
@@ -252,7 +252,7 @@ void lcdFunTime()
   setLine(25, 30, 35, 40, WHITE);
   setLine(45, 10, 55, 20, WHITE);
   updateDisplay();
-  delay(2000);
+  DelayMs(2000);
   
   /* setCircle Example */
   clearDisplay(WHITE);
@@ -268,16 +268,16 @@ void lcdFunTime()
     
     setCircle(x, y, i, BLACK, 1);
     updateDisplay();
-    delay(100);
+    DelayMs(100);
   }
-  delay(2000);
+  DelayMs(2000);
   
   /* setChar & setStr Example */
   // setStr takes 4 parameters: an array of characters to print,
   // x and y coordinates for the top-left corner. And a color
   setStr("Modern Art", 0, 10, WHITE);
   updateDisplay();
-  delay(2000);
+  DelayMs(2000);
   
   /* setBitmap Example */
   // setBitmap takes one parameter, an array of the same size
